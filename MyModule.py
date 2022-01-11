@@ -14,9 +14,18 @@ def alustus():
         2. Registreerida
         3. Välja minna""")
         vastus = input() 
-        if vastus == "1":            
-            #if userNames.index(userName) ==:
-            print()
+        if vastus == "1":
+            userName = input("Palun sisetage oma nimi => ")
+            if userName not in userNames:
+                print("Sellist nime pole registreeritud")
+            else:
+                print("Olete sisenenud nimega: ",userName)
+                userPassword = input("Palun siseta oma parool => ")
+                if userPassword not in userPasswords:
+                    print("Sellist parooli ei ole")
+                else:
+                    print("Tere tulemast, olete tubli!")
+                    break
         elif vastus == "2":
             while True:
                 NewUserName = input("Palun sisetage oma nimi -> ")               
@@ -27,16 +36,16 @@ def alustus():
                     print("Selline nimi on juba kasutamas")
             while vastus2:
                 print("""
-        1. Luua parooli ise
-        2. Juhuslikult genereerida parooli""")
+                1. Luua parooli ise
+                2. Juhuslikult genereerida parooli""")
                 if vastus2 == "1":
                     while True:
                         NewUserPassword = input("""
-        Paroolis peab olema vähemalt 1 sümbol erinevatest tüüpidest
-        ->""")
+                        Paroolis peab olema vähemalt 1 sümbol erinevatest tüüpidest
+                        ->""")
                         if kontroll(NewUserPassword) == False: 
                             print("""
-        Parool ei vasta nõuetele""")
+                            Parool ei vasta nõuetele""")
                         else:
                             userPasswords.append(NewUserPassword)
                             break
@@ -48,7 +57,6 @@ def alustus():
             SystemExit
         else:
             print("Vale andmetüüp!")
-
 
 def randomPassword()->str:
     """Juhuslikult genereerime parooli
