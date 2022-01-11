@@ -1,90 +1,89 @@
+from random import*
 def alustus():
     """Saidi menuu
     """
-    vastus = True
+    userNames = ["Edgar"]
+    userPasswords = ["12345"]
+    vastus = vastus2 = True
     print("""
-        Tere, olete sisenenud meie saiti Vilmem.net!
-        Kas te olete meie saidis esimest korda või olete juba registreeritud?
-         """)
+        Tere, olete sisenenud meie saiti Example.net!
+        Kas te olete meie saidis esimest korda või olete juba registreeritud?""")
     while vastus:
         print("""
-        1. Minna sisse
+        1. Sisse minna
         2. Registreerida
-             """)
+        3. Välja minna""")
         vastus = input() 
-        if vastus=="1":
-            print("GG")
-            vastus = "autoriseerimine"
-            break
-        elif vastus=="2":
-            print("GGWP")
-            vastus = "registreerimine"
-            break
+        if vastus == "1":            
+            #if userNames.index(userName) ==:
+            print()
+        elif vastus == "2":
+            while True:
+                NewUserName = input("Palun sisetage oma nimi -> ")               
+                if NewUserName not in userNames: 
+                    userNames.append(NewUserName)
+                    break
+                else:
+                    print("Selline nimi on juba kasutamas")
+            while vastus2:
+                print("""
+        1. Luua parooli ise
+        2. Juhuslikult genereerida parooli""")
+                if vastus2 == "1":
+                    while True:
+                        NewUserPassword = input("""
+        Paroolis peab olema vähemalt 1 sümbol erinevatest tüüpidest
+        ->""")
+                        if kontroll(NewUserPassword) == False: 
+                            print("""
+        Parool ei vasta nõuetele""")
+                        else:
+                            userPasswords.append(NewUserPassword)
+                            break
+                if vastus2 == "2":
+                    print("Sinu uus parool on: ",randomPassword())
+                    usersPasswords.append(randomPassword())
+                    break
+        elif vastus == "3":
+            SystemExit
         else:
             print("Vale andmetüüp!")
 
 
-#def login():
-#    """User nickname'i ilmumine ja kontroll
-#    """
-#    user_login = "admin"
-#    while True:
-#        try:
-#            new_user_login=str(input("Sisetage oma nickname vähemalt viiest sümbolist, ning kasutage ainult tähti -> "))
-#            if type(new_user_login) == str and len(new_user_login) >= 5:
-#                break
-#            elif new_user_login == user_login: #2
-#                print("Selline nickname on juba hõivatud, palun kirjutage uuesti")
-#            else:
-#                print("Teie nickname sisetab ebakorrektset sümbolit või ta on liiga lühike")
-#    print(new_user_login)
-
-#def password():
-#    """User password'i ilmumine ja kontroll
-#    """
-#    user_password = 0
-#    while True:
-#        try:
-#            user_password=int(input("Sisetage oma password vähemalt viiest sümbolist, ning kasutage ainult numbri -> "))
-#            if type(user_password) == int and len(user_password) >= 5: #3
-#                break
-#            else:
-#                print("Teie password sisetab ebakorrektset sümbolit või ta on liiga lühike")
-#    print(user_password)
-
-import random
-
-def randompass()->str:
-    """Пароль создаётся рандомно
+def randomPassword()->str:
+    """Juhuslikult genereerime parooli
+    :rtype: str
     """
-    str0=".,:;!_*-+()/#¤%&"
-    str1 = '0123456789'
-    str2 = 'qwertyuiopasdfghjklzxcvbnm'
-    str3 = str2.upper() # 'QWERTYUIOPASDFGHJKLZXCVBNM'
+    
+    str0 = ".,:;!_*-+()/#¤%&"
+    str1 = "0123456789"
+    str2 = "qwertyuiopasdfghjklzxcvbnm"
+    str3 = str2.upper() 
     str4 = str0+str1+str2+str3
-    ls = list(str4)
-    random.shuffle(ls) #перемешиваются все символы
-    psword = ''.join([random.choice(ls) for x in range(12)])
-    return psword
+    loend = list(str4)
+    shuffle(loend)
+    password = ''.join([choice(loend) for x in range(12)])
+    return password
 
-def control(passwords:str)->str:
-    """Проверка пароля, самое главное чтобы в личном пароле присутсвовал хотя 1 тип символов.
+def kontroll(userPassword:str)->bool:
+    """Parooli kontroll: paroolis peab olema vähemalt 1 sümbol erinevatest tüüpidest.
+    :param str userPassword: Parool, mis sisetab kasutaja
+    :rtype: bool
     """
-    str0=".,:;!_*-+()/#¤%&"
-    alpha=digit=upper=sprcial=0
-    ls=list(str0)
-    pas=list(passwords)
-    for i in range(len(pas)):
-        if pas[i].isupper():
-            upper=1
-        if pas[i].isalpha():
-            alpha=1
-        if pas[i].isdigit():
-            digit=1
-        if pas[i] in ls:
-            special=1
-    if alpha==1 and digit==1 and upper==1 and special==1:
-        control=True
-    else:
-        control=False
-    return control
+    str0 = ".,:;!_*-+()/#¤%&"
+    alpha = digit = upper = special = False
+    while True:
+        for i in range(len(userPassword)):
+            if userPassword[i].isalpha():
+                alpha += 1 
+            if userPassword[i].isdigit():
+                digit += 1 
+            if userPassword[i].isupper():
+                upper += 1
+            if userPassword[i] in str0:
+                special += 1
+        if alpha >=  1 and digit >= 1 and upper >= 1 and special >= 1:
+            tulemus = True
+        else:
+            tulemus = False
+    return tulemus

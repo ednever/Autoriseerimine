@@ -1,0 +1,2 @@
+from MyModule import*
+alustus()
