@@ -17,15 +17,15 @@ def alustus():
         vastus = input() 
         if vastus == "1":
             if autoriseerimine() == False:
-                print("Olete sisenenud meie saidis!")
-                SystemExit
-        elif vastus == "2":
-            if registreerimine() == False:
                 print("...Palun oodake...")
                 s = "/"
                 for i in range(101):
                     sleep(0.05)
                     print("\r","Load",i*s,str(i),"%",end = " ")
+                print("Olete sisenenud meie saidis!")
+                SystemExit
+        elif vastus == "2":
+            if registreerimine() == False:
                 print("Olete registreerinud meie saidis, palun autoriseerige")
         elif vastus == "3":
             SystemExit
