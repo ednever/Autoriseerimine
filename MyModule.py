@@ -4,7 +4,7 @@ def alustus():
     """
     userNames = ["Edgar"]
     userPasswords = ["12345"]
-    vastus = vastus2 = True
+    vastus = vastus2 = vastus3 = True
     print("""
         Tere, olete sisenenud meie saiti Example.net!
         Kas te olete meie saidis esimest korda või olete juba registreeritud?""")
@@ -15,48 +15,67 @@ def alustus():
         3. Välja minna""")
         vastus = input() 
         if vastus == "1":
-            userName = input("Palun sisetage oma nimi => ")
-            if userName not in userNames:
-                print("Sellist nime pole registreeritud")
-            else:
-                print("Olete sisenenud nimega: ",userName)
-                userPassword = input("Palun siseta oma parool => ")
-                if userPassword not in userPasswords:
-                    print("Sellist parooli ei ole")
-                else:
-                    print("Tere tulemast, olete tubli!")
-                    break
+            if autoriseerimine() == False:
+                print("Olete sisenenud meie saidis!")
+                SystemExit
         elif vastus == "2":
-            while True:
-                NewUserName = input("Palun sisetage oma nimi -> ")               
-                if NewUserName not in userNames: 
-                    userNames.append(NewUserName)
-                    break
-                else:
-                    print("Selline nimi on juba kasutamas")
-            while vastus2:
-                print("""
-                1. Luua parooli ise
-                2. Juhuslikult genereerida parooli""")
-                if vastus2 == "1":
-                    while True:
-                        NewUserPassword = input("""
-                        Paroolis peab olema vähemalt 1 sümbol erinevatest tüüpidest
-                        ->""")
-                        if kontroll(NewUserPassword) == False: 
-                            print("""
-                            Parool ei vasta nõuetele""")
-                        else:
-                            userPasswords.append(NewUserPassword)
-                            break
-                if vastus2 == "2":
-                    print("Sinu uus parool on: ",randomPassword())
-                    usersPasswords.append(randomPassword())
-                    break
+            if registreerimine() == False:
+                print("Olete registreerinud meie saidis, palun autoriseerige")
         elif vastus == "3":
             SystemExit
         else:
             print("Vale andmetüüp!")
+
+def autoriseerimine()->bool:
+    """Kasutaja mineb sisse oma nimega ja oma parooliga
+    :rtype: bool
+    """
+    while vastus3:
+        userName = input("Palun sisetage oma nimi => ")
+        if userName not in userNames:
+            print("Sellist nime pole registreeritud")
+        else:
+            print("Olete sisenenud nimega: ",userName)
+            userPassword = input("Palun siseta oma parool => ")
+            if userPassword not in userPasswords:
+                print("Sellist parooli ei ole")
+            else:
+                vastus3 = False
+    return vastus3
+
+def registreerimine()->bool:
+    """Lisame kasutaja nimi ja parool loenditesse
+    :rtype: bool
+    """
+    while True:
+        NewUserName = input("Palun sisetage oma nimi -> ")               
+        if NewUserName not in userNames: 
+            userNames.append(NewUserName)
+            break
+        else:
+            print("Selline nimi on juba kasutamas")
+    while vastus2:
+        print("""
+        1. Luua parooli ise
+        2. Juhuslikult genereerida parooli""")
+        if vastus2 == "1":
+            while True:
+                NewUserPassword = input("""
+                Paroolis peab olema vähemalt 1 sümbol erinevatest tüüpidest
+                ->""")
+                if kontroll(NewUserPassword) == False: 
+                    print("""
+                    Parool ei vasta nõuetele""")
+                else:
+                    userPasswords.append(NewUserPassword)
+                    vastus2 = False
+        elif vastus2 == "2":
+            print("Sinu uus parool on: ",randomPassword())
+            usersPasswords.append(randomPassword())
+            vastus2 = False
+        else:
+            print("Vale andmetüüp!")
+    return vastus2
 
 def randomPassword()->str:
     """Juhuslikult genereerime parooli
