@@ -1,4 +1,5 @@
 from random import*
+from time import*
 def alustus():
     """Saidi menuu
     """
@@ -20,6 +21,11 @@ def alustus():
                 SystemExit
         elif vastus == "2":
             if registreerimine() == False:
+                print("...Palun oodake...")
+                s = "/"
+                for i in range(101):
+                    sleep(0.05)
+                    print("\r","Load",i*s,str(i),"%",end = " ")
                 print("Olete registreerinud meie saidis, palun autoriseerige")
         elif vastus == "3":
             SystemExit
