@@ -1,2 +1,4 @@
 from MyModule import*
-alustus()
+userNames = ["Edgar"]
+userPasswords = ["12345"]
+alustus(userNames,userPasswords)
